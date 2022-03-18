@@ -13,6 +13,11 @@
       .err
       {
         color:red;
+        
+      }
+      #spinner
+      {
+        display: none;
       }
     </style>
 </head>
@@ -24,7 +29,11 @@
                 <input type="text" id="input" class="form-control " placeholder="Search for cocktail" aria-label="Recipient's username" aria-describedby="button-addon2">
                 <button onclick="getCocktail()" class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
               </div>
-
+                <!-- spinner -->
+                <div id="spinner">
+                  Loading......
+                </div>
+                
 
                 <!-- error 1 -->
                 <div>
@@ -49,9 +58,12 @@
 
 
               <!-- display coktail -->
-              <div class="row row-cols-1 row-cols-md-2 g-4 " id="display">
+              <div>
+                  <div class="row row-cols-1 row-cols-md-2 g-4 " id="display">
                 
                 </div>
+              </div>
+              
               
     </Main>
     <script src="cocktail.js"></script>

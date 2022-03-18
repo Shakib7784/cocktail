@@ -1,7 +1,14 @@
 
+
+// get spinner
+const togglespinner = spin=>{
+
+    document.getElementById("spinner").style.display=spin;
+}
 const getCocktail= ()=>
 {
-        
+    togglespinner("block");
+    
         const inputfield = document.getElementById("input");
         const inputfieldValue = inputfield.value;
         //removing previous text from input field
@@ -14,6 +21,7 @@ const getCocktail= ()=>
         else
         {
             document.getElementById("errorp").style.display="none";
+            
             const url =`https://www.thecocktaildb.com/api/json/v1/1/search.php? s=${inputfieldValue}`;
             fetch(url)
             .then(Response=>Response.json())
@@ -32,22 +40,24 @@ const showerror = er=>{
     errors are : ${er}
     `
     show.appendChild(p);
+    togglespinner("none");
+    
 }
 
 
 
 const displaydrinks = drinksAll =>{
 
+    console.log(drinksAll);
+  
     const callDisplay = document.getElementById("display");
+    
      // showing error if user searched by any name which is not avaiable inside therir list
-     if(drinksAll.length==0)
-     {
-         document.getElementById("errorp2").style.display="block";
-     }
+    
     // clear previous searched result
     callDisplay.innerText='';
    
-    
+
         drinksAll.forEach(drink=>{
 
             const div = document.createElement("div");
@@ -64,12 +74,18 @@ const displaydrinks = drinksAll =>{
                  </div>
             </div>
             `
-    
+              
             callDisplay.appendChild(div);  
         }) 
+        togglespinner("none");
+        //stop showing error when we get correct result
+        document.getElementById("showerror").style.display="none";
+        
 }
 
 const getconctailID = cocid=>{
+    
+    togglespinner("block");
 
         const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${cocid}`;
         fetch(url)
@@ -80,8 +96,9 @@ const getconctailID = cocid=>{
 
 const showsingle= single=>{
 
-
+    
             const singledisplay = document.getElementById("singledisplay");
+           
             // removing previous data from single display
             singledisplay.innerHTML="";
             const div= document.createElement("div");
@@ -90,11 +107,22 @@ const showsingle= single=>{
             <img src="${single.strDrinkThumb}" class="card-img-top img-fluid" alt="...">
             <div class="card-body">
               <h5 class="card-title">${single.strDrink}</h5>
-              <p class="card-text">${single.strInstructionsDE.slice(0,100)}</p>
+              <p class="card-text">${single.strInstructionsDE?single.strInstructionsDE.slice(0,100):"description is not available"}</p>
               <a target="_blank"  href="${single.strImageSource}" class="btn btn-primary">Go somewhere</a>
             </div>
             `;
             singledisplay.appendChild(div);
+           /*  singledisplay.addEventListener("click",function(){
+                invisible();
+            }) */
+            togglespinner("none");
            
 
 }
+
+/* const invisible = ()=>{
+
+    document.getElementById("singledisplay").style.display="none";
+
+
+} */
